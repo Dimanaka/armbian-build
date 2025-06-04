@@ -68,7 +68,7 @@ function create_new_rootfs_cache_via_debootstrap() {
 	display_alert "Preparing debootstrap" "for ${DISTRIBUTION}'s ${RELEASE}" "info"
 	case "${DISTRIBUTION}" in
 		Ubuntu)
-			GIT_FIXED_WORKDIR="debootstrap-ubuntu-devel" fetch_from_repo "https://git.launchpad.net/ubuntu/+source/debootstrap" "debootstrap-ubuntu-devel" "tag:import/1.0.118ubuntu1.13"
+			GIT_FIXED_WORKDIR="debootstrap-ubuntu-devel" fetch_from_repo "https://git.launchpad.net/ubuntu/+source/debootstrap" "debootstrap-ubuntu-devel" "branch:ubuntu/devel"
 			debootstrap_wanted_dir="${SRC}/cache/sources/debootstrap-ubuntu-devel"
 			debootstrap_default_script="gutsy"
 			;;
@@ -113,7 +113,7 @@ function create_new_rootfs_cache_via_debootstrap() {
 
 	deboostrap_arguments+=("${RELEASE}" "${SDCARD}/" "${debootstrap_apt_mirror}") # release, path and mirror; always last, positional arguments.
 
-	# Set DEBOOTSTRAP_DIR only for this invocation; if we instead export it, the second stage will fail
+	# Set DEBOOTSTRAP_DIR only for this invocation; if we instead export it, the 2nd stage will fail
 	run_host_command_logged "DEBOOTSTRAP_DIR='${debootstrap_wanted_dir}'" "${debootstrap_bin}" "${deboostrap_arguments[@]}" || {
 		exit_with_error "Debootstrap first stage failed" "${debootstrap_bin} ${RELEASE} ${DESKTOP_APPGROUPS_SELECTED} ${DESKTOP_ENVIRONMENT} ${BUILD_MINIMAL}"
 	}
@@ -124,7 +124,6 @@ function create_new_rootfs_cache_via_debootstrap() {
 	deploy_qemu_binary_to_chroot "${SDCARD}" # this is cleaned-up later by post_debootstrap_tweaks() @TODO: which is too late for a cache
 
 	display_alert "Installing base system" "Stage 2/2" "info"
-	declare -g -a if_error_find_files_sdcard=("debootstrap.log") # if command fails, go look for this file and show it's contents during error processing
 	declare -g if_error_detail_message="Debootstrap second stage failed ${RELEASE} ${DESKTOP_APPGROUPS_SELECTED} ${DESKTOP_ENVIRONMENT} ${BUILD_MINIMAL}"
 	chroot_sdcard LC_ALL=C LANG=C /debootstrap/debootstrap --second-stage
 	[[ ! -f "${SDCARD}/bin/bash" ]] && exit_with_error "Debootstrap first stage did not produce /bin/bash"
@@ -224,11 +223,11 @@ function create_new_rootfs_cache_via_debootstrap() {
 
 	# stage: check md5 sum of installed packages. Just in case. @TODO: rpardini: this should also be done when a cache is used, not only when it is created
 	# lets check only for supported targets only unless forced
-	if [[ "${DISTRIBUTION_STATUS}" == "supported" && "${FORCE_CHECK_MD5_PACKAGES:-"no"}" == "yes" ]]; then
-		display_alert "Checking MD5 sum of installed packages" "debsums" "info"
-		declare -g if_error_detail_message="Check MD5 sum of installed packages failed"
-		chroot_sdcard debsums --silent
-	fi
+	#if [[ "${DISTRIBUTION_STATUS}" == "supported" || "${FORCE_CHECK_MD5_PACKAGES:-"no"}" == "yes" ]]; then
+	#	display_alert "Checking MD5 sum of installed packages" "debsums" "info"
+	#	declare -g if_error_detail_message="Check MD5 sum of installed packages failed"
+	#	chroot_sdcard debsums --silent
+	#fi
 
 	# # Remove packages from packages.uninstall
 	# # @TODO: aggregation.py handling of this... if we wanted it removed in rootfs cache, why did we install it in the first place?

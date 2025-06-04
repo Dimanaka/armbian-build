@@ -1,0 +1,63 @@
+From 2af52d684c05cdd7eef9123baa7a1157507b03a2 Mon Sep 17 00:00:00 2001
+From: Nick Alilovic <nickalilovic@gmail.com>
+Date: Mon, 23 Sep 2024 09:37:45 -0400
+Subject: [PATCH 2/2] configs: x96q lpddr3: Add SECURE BOOT
+
+Add SECURE BOOT
+
+Signed-off-by: Nick Alilovic <nickalilovic@gmail.com>
+---
+ configs/x96q_lpddr3_defconfig |  1 +
+ root_key.pem                  | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+ create mode 100644 root_key.pem
+
+diff --git a/configs/x96q_lpddr3_defconfig b/configs/x96q_lpddr3_defconfig
+index 764e77dac1..828f59a9b7 100644
+--- a/configs/x96q_lpddr3_defconfig
++++ b/configs/x96q_lpddr3_defconfig
+@@ -17,6 +17,7 @@ CONFIG_MACH_SUN50I_H616=y
+ CONFIG_R_I2C_ENABLE=y
+ CONFIG_SPL_I2C=y
+ CONFIG_SPL_I2C_SUPPORT=y
++CONFIG_SPL_IMAGE_TYPE_SUNXI_TOC0=y
+ CONFIG_SPL_SYS_I2C_LEGACY=y
+ CONFIG_SYS_I2C_MVTWSI=y
+ CONFIG_SYS_I2C_SLAVE=0x7f
+diff --git a/root_key.pem b/root_key.pem
+new file mode 100644
+index 0000000000..cfffdbf247
+--- /dev/null
++++ b/root_key.pem
+@@ -0,0 +1,28 @@
++-----BEGIN PRIVATE KEY-----
++MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC4N+7DvqP4cmLP
++1u9L8dQ1fVtzXxwzt6Qrn0JEMyHtQm2ZSwxOrAjyPKt9UTfEz3G5K7v7wBLzxS+n
++KQWtrcwiFfAPrFK5wyEQU/z/ltfUBg4NCagvgngb38AGwdgAPZ9+Wl3cueB6XxpJ
++etVlLUQtiaqGb92CyUDqZsbrNaBOOcxUxNEkAtxOHzriDC9PKRi780ntXWjp+R5Z
++loDQ0SyxjnhGBPNAhEAkEHXCLhTg82JHm4tNEVi/esXfMwQRm6x/eb/p55zd/ULU
++RXdxxS0j7/DPhRpync6mYJzLl7bDRrNA9DnyyC2kgWWkJ9F/QNMl3HqHTgClehTZ
++MfO1tCM5AgMBAAECggEAAn6CJsCRUSFWHq6wF8OYupeBK/U6/ojDRmRP59TlyYsB
++oi28fIwH/ev1ASne1L+txZ8k85qYp/uUVGjaynrng8roN8OpiZKGo14qMArf6x9S
++eb2hjPfmX++vAT6jcOpkrOmDAFnf+IGDbytWPGTTxGoD5upf2PjYHnqPZQyrHY//
++yAIpYtS9zjRx44iVN8olwwXXTDVe7yigAkrYvu0f4AUUv4azv68eYWXUXDN1YaWE
++gtwjSOCnhuwHTJTyz6Vi40ju32zxq7rTbe09NV7LcU6CmJBy8GDv2KsNfwk+OwsI
++gvz31jZ1jwyLZEGAxL/ibA0ldSAsjG3Akgw8jqG1cQKBgQDunDFVljn2uWVoBwip
++QJveKIGNgVnJ6YF630JGMP4X20rkh7/9lyBJQUixlc6Z3qUcCfyKi8EJkPMLs1u+
++QSmmKnsInqp8ZkCPG0g4FZNgHkC+fIfmgO+gVNxyh+MXZNsvVVH6NtpRIfLSXeCl
++aTWv4d8rIU5Tl9hDY2UhGQ7CaQKBgQDFpPEeS5hdIaqnZaJ50/V/gzrkENAFWZuP
++zYqhS4RcD6dogAByjQvvNByIn5avrPz6N75qsZl5VY0TtaYe6hHehDOwKHM7CFZe
++FSjSTdgi7b5jL11///9W5Eztn7L1ckZo93j2ZYLl9+PuXGAY4SRcYYOQjBBmOwmj
++Qpryy2+gUQKBgCY4uuZc1BgjhoztY4PJJ66kimwiZkGjt+v4y2L3AhzMMej9ndF/
++XdqeLIjV2Gxpb8VYDC4dSOTBZU1gg7esNIG7mE2/LMwUjQ7fbegd/KeO8QwSYqqX
++yMrEDTQDdGsQ6tNgNWuBUeNhLsZn505X1hPAeMEt6qAVWL0itNZibyzRAoGBALD6
++8wKa1LPImuTM6MHI4FOvckOZHn078UXC2zl1wu8hAVpdDImG7cHj2w0oQqnK8Lkq
++w3MM145D4lFc3oVeOmQT46kBf7XD0Hrs3aH8HOeiFlMArewZk07+njhGQdzx2ETU
++HVgeLCm7YTonM9HzgTjMBSChm2m/wfCUiuWQ78MRAoGAWAElZCjb8Dxp9z8KJ0JX
++Z3d2yueOgxf3J6X+7XMW7Yv9uFOvYNI/BNT3Ii3P+u6SJpKXuQgBoDT/2FP/f8m6
++U1dMu7PHcBi3MA1IvGi6NSC+cVcIy0yYi2vYsW6lkOsDwr+HrDQWte3HjiXcIy+g
++f9CFoVb4L1ILI/SBaZSV8LQ=
++-----END PRIVATE KEY-----
+-- 
+2.34.1
+

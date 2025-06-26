@@ -26,11 +26,11 @@
 - Superuser rights (configured sudo or root access).
 - Make sure your system is up-to-date! Outdated Docker binaries, for example, can cause trouble.
 
-For stable branch use `--branch=v24.08`
+(Edited)
 
 ```bash
 apt-get -y install git
-git clone --depth=1 --branch=main https://github.com/armbian/build
+git clone --depth=1 --branch=main https://github.com/Dimanaka/armbian-build
 cd build
 ./compile.sh
 ```
